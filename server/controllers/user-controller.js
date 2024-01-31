@@ -51,9 +51,9 @@ const userController = {
   login: async (req, res) => {
     try {
       const { email, password } = req.body
-     
+
       const user = await User.findOne({ email })
-      if (!user) return res.status(400).json("Invalid email or password")
+      if (!user) return res.status(400).json('Invalid email or password')
 
       const isValidPassword = await bcrypt.compare(password, user.password)
       if (!isValidPassword) return res.status(400).json('Invalid email or password')
@@ -61,7 +61,25 @@ const userController = {
       const token = createToken(user._id)
 
       res.status(200).json({ _id: user._id, name: user.name, email, token })
+    } catch (err) {
+      next(err)
+    }
+  },
+  findUser: async (req, res) => {
+    try {
+      const userId = req.params.userId
+      const user = await User.findById(userId)
 
+      res.status(200).json(user)
+    } catch (err) {
+      next(err)
+    }
+  },
+  getUsers: async (req, res) => {
+    try {
+      const users = await User.find()
+
+      res.status(200).json(users)
     } catch (err) {
       next(err)
     }
