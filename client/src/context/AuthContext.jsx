@@ -42,19 +42,24 @@ export const AuthContextProvider = ({children}) => {
     setUser(response)
   }, [registerInfo])
 
-
+  const logoutUser = useCallback(() => {
+    localStorage.removeItem("User")
+    setUser(null)
+  }, [])
 
   return (
-    <AuthContext.Provider 
-      value={{ 
-        user, 
-        registerInfo, 
-        updateRegisterInfo ,
+    <AuthContext.Provider
+      value={{
+        user,
+        registerInfo,
+        updateRegisterInfo,
         registerUser,
         registerError,
-        isRegisterLoading
+        isRegisterLoading,
+        logoutUser
       }}
     >
       {children}
-    </AuthContext.Provider>)
+    </AuthContext.Provider>
+  )
 }
