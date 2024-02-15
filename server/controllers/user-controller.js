@@ -62,7 +62,8 @@ const userController = {
 
       res.status(200).json({ _id: user._id, name: user.name, email, token })
     } catch (err) {
-      next(err)
+      console.log(err)
+      res.status(500).json(err)
     }
   },
   findUser: async (req, res) => {
@@ -72,7 +73,8 @@ const userController = {
 
       res.status(200).json(user)
     } catch (err) {
-      next(err)
+      console.log(err)
+      res.status(500).json(err)
     }
   },
   getUsers: async (req, res) => {
@@ -81,7 +83,8 @@ const userController = {
 
       res.status(200).json(users)
     } catch (err) {
-      next(err)
+      console.log(err)
+      res.status(500).json(err)
     }
   }
 }
